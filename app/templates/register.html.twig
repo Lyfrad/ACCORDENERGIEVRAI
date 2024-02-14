@@ -1,0 +1,35 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+<h1>Créez votre compte</h1>
+
+ <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; >
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        
+        <label for="address">Address:</label>
+        <input type="text" name="address" id="address" required>
+        
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" id="phone_number" required>
+        
+        <label for="electricity_usage">Electricity Usage:</label>
+        <input type="text" name="electricity_usage" id="electricity_usage" required>
+        
+        <label for="gas_usage">Gas Usage:</label>
+        <input type="text" name="gas_usage" id="gas_usage" required>
+        
+        <input type="checkbox" name="agree_terms" id="agree_terms" required>
+        <label for="agree_terms">I agree to the terms and conditions.</label>
+        
+        <input type="submit" value="Register">
+
+</form>
+
+<p>
+    <a href="index.php">Déjà un compte ?</a>
+</p>
