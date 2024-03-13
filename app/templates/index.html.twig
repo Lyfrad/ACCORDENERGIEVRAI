@@ -1,21 +1,49 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 
-  <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Login</title>
-    </head>
-    <body>
-        <h1>Login</h1>
-        {% if msg %}
-            <p>{{ msg }}</p>
-        {% endif %}
-        <form method="POST" action="">
-            <label for="mail">Email:</label>
-            <input type="email" id="mail" name="mail" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="Login">
-        </form>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo de l'entreprise">
+        </div>
+        <nav>
+            <ul>
+                {% for item in menu %}
+                    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1>{{ content.title }}</h1>
+            <p>{{ content.text }}</p>
+            <a href="{{ content.button.url }}" class="button">{{ content.button.text }}</a>
+        </section>
+        <div class="container">
+            <div class="box">
+                <h2>Nos services</h2>
+                <p>Découvrez nos services pour les particuliers et les professionnels.</p>
+                <a href="/services" class="button">En savoir plus</a>
+            </div>
+            <div class="box">
+                <h2>Mon compte</h2>
+                <p>Accédez à votre compte client pour suivre vos interventions et vos factures.</p>
+                <a href="/compte" class="button">Se connecter</a>
+            </div>
+            <div class="box">
+                <h2>Contactez-nous</h2>
+                <p>Besoin d'aide ? Contactez notre service client par téléphone ou par email.</p>
+                <a href="/contact" class="button">Nous contacter</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
