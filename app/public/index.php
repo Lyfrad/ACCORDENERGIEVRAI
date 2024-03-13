@@ -1,40 +1,36 @@
 <?php
 
-    require_once '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
-    use App\Page;
-    
-    $page = new Page();
-    $msg = false;
+use App\Page;
 
-    if(isset($_POST['send'])){
-        session_start();
-        
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $username = $_POST["username"];
-            $password = $_POST["password"];    
-            $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            
-            $result = $stmt->get_result();
-            
-            if ($result->num_rows == 1) {
-                $row = $result->fetch_assoc();
-                if (password_verify($password, $row["password"])) {
-                    $_SESSION["username"] = $username;
-                    header("Location: main.php");
-                    exit;
-                }
-            }
-            
-            $error = "Invalid username or password.";
-            
-            $stmt->close();
-            $conn->close();
-        }}
+$page = new Page();
+$msg = '';
 
+//session_start(); // Start the session
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST["mail"];
+    $password = $_POST["password"];
+    $user = $page->getUserByUsername($username);
 
+    if (!empty($user) /*&& password_verify($password, $user["password"])*/) {
+        $msg = "NoOURTRE THect.";
 
-    echo $page->render('index.html.twig', ['msg' => $msg]);
+        $_SESSION["mail"] = $username;
+        header("Location: main.php");
+        exit;
+    } else {
+        $msg = "Nom d'utilisateur ou mot de passe incorrect.";
+    }
+}
+
+if (!empty($_SESSION["mail"])) { // Check if the user is logged in
+    $msg = ''; // Clear the message if the user is logged in
+}
+
+$template = 'index.html.twig';
+$data = ['msg' => $msg];
+
+echo $page->render($template, $data);
+?>

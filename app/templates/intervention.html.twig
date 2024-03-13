@@ -1,0 +1,45 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une intervention</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Créer une nouvelle intervention</h1>
+
+<form method="POST" action="">
+    <label for="idClient">Client:</label>
+    <select name="idClient" id="idClient" required>
+        <option value="">Sélectionner un client</option>
+       
+        //for user in user % ...
+       
+    </select>
+
+    <label for="datePrevue">Date prévue:</label>
+    <input type="datetime-local" name="datePrevue" id="datePrevue" required>
+
+    <label for="degreUrgence">Degré d'urgence:</label>
+    <select name="degreUrgence" id="degreUrgence" required>
+        <option value="">Sélectionner le degré d'urgence</option>
+        <option value="Faible">Faible</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Élevé">Élevé</option>
+    </select>
+
+    <label for="idCommentaire">Commentaire:</label>
+    <textarea name="idCommentaire" id="idCommentaire"></textarea>
+
+    <input type="submit" name="send" value="Enregistrer">
+</form>
+
+<p>
+    <a href="index.php">Retour à l'accueil</a>
+</p>
+
+</body>
+</html>

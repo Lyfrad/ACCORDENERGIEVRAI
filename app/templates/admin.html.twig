@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'administration</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Page d'administration</h1>
+
+<h2>Liste des interventions</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID Intervention</th>
+            <th>Client</th>
+            <th>Date Prévue</th>
+            <th>Degré d'urgence</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if interventions %}
+            {% for intervention in interventions %}
+                <tr>
+                    <td>{{ intervention.idIntervention }}</td>
+                    <td>{{ intervention.idClient }}</td> <!-- Vous devez récupérer le nom du client par une autre requête SQL -->
+                    <td>{{ intervention.datePrevue }}</td>
+                    <td>{{ intervention.degreUrgence }}</td>
+                    <td>
+                        <a href='modifier_intervention.php?id={{ intervention.idIntervention }}'>Modifier</a>
+                        <a href='supprimer_intervention.php?id={{ intervention.idIntervention }}' onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette intervention ?")'>Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="5">Aucune intervention trouvée.</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<p>
+    <a href="index.php">Retour à l'accueil</a>
+</p>
+
+</body>
+</html>

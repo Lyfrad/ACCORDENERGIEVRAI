@@ -2,46 +2,78 @@
 
 namespace App;
 
+use PDO;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class Page
 {
-    private \Twig\Environment $twig;
-    private $pdo;
+    private Environment $twig;
+    private PDO $pdo;
     public $session;
+
     function __construct()
     {
         $this->session = new Session();
 
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=ProjetPHP', "root", "");
+            $this->pdo = new \PDO('mysql:host=mysql;dbname=ProjetPHP', "root", "");
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             var_dump($e->getMessage());
             die();
         }
 
-
-        $loader = new \Twig\Loader\FilesystemLoader('../templates');
-        $this->twig = new \Twig\Environment($loader, [
+        $loader = new FilesystemLoader('../templates');
+        $this->twig = new Environment($loader, [
             'cache' => '../var/cache/compilation_cache',
             'debug' => true
         ]);
     }
+
     public function renderTable(string $table_name, array $data)
     {
-        $sql = "INSERT INTO " . $table_name . "(email, password) VALUES (:email, :password)";
+        // Assurez-vous que la table_name fournie est valide pour éviter les attaques d'injection SQL
+        $valid_tables = ['user', 'intervention', 'statut', 'commentaire', 'intervenantintervention'];
+        if (!in_array($table_name, $valid_tables)) {
+            throw new InvalidArgumentException("Nom de table invalide.");
+        }
+
+        $columns = implode(", ", array_keys($data));
+        $values = ":" . implode(", :", array_keys($data));
+        $sql = "INSERT INTO $table_name ($columns) VALUES ($values)";
         $stmt = $this->pdo->prepare($sql);
+
+        // Affichage des données pour débogage
+        echo "Requête SQL : $sql <br>";
+        echo "Données insérées : <pre>" . print_r($data, true) . "</pre>";
+
         $stmt->execute($data);
     }
 
-    public function getUserByEmail(array $data)
+    public function getUserByUsername(string $email)
     {
-        $sql = "SELECT * FROM users WHERE email = :email";
+        $sql = "SELECT * FROM user WHERE mail = :mail";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($data);
-        return $stmt->fetch (\PDO::FETCH_ASSOC);
+        $stmt->execute([':mail' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function render(string $name, array $data) : string
+    public function getAllInterventions(){
+        $sql = "SELECT idIntervention, DATE_FORMAT(date_prevue, '%Y-%m-%d %H:%i:%s') AS datePrevue FROM Intervention";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getInterventionByDate(string $date)
+{
+    $sql = "SELECT * FROM Intervention WHERE date_prevue = :date";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':date' => $date]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+    public function render(string $name, array $data): string
     {
         return $this->twig->render($name, $data);
     }

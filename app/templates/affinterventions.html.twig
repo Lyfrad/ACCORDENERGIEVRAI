@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte d'intervention</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Tous les IDs des interventions :</h2>
+<ul>
+    {% for intervention in interventions %}
+        <li>{{ intervention.idIntervention }}</li>
+    {% endfor %}
+</ul>
+
+<form method="POST" action="">
+    <label for="dateIntervention">Sélectionner une date d'intervention :</label>
+    <select name="dateIntervention" id="dateIntervention">
+        <option value="">Choisir une date</option>
+        {% for intervention in interventions %}
+            <option value="{{ intervention.datePrevue }}">{{ intervention.datePrevue }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Afficher">
+</form>
+
+{% if selectedIntervention %}
+<div class="card">
+    <h2>Intervention {{ selectedIntervention.id }}</h2>
+    <p><strong>Date prévue:</strong> {{ selectedIntervention.datePrevue }}</p>
+    <p><strong>Degré d'urgence:</strong> {{ selectedIntervention.degreUrgence }}</p>
+    <p><strong>Commentaire:</strong> {{ selectedIntervention.commentaire }}</p>
+</div>
+{% endif %}
+
+</body>
+</html>
