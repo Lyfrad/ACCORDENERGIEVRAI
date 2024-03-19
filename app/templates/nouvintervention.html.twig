@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Intervention</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Nouvelle Intervention</h1>
+
+<form method="post" action="nouvintervention.php">
+    <label for="date_prevue">Date prévue :</label>
+    <input type="datetime-local" name="date_prevue"><br>
+
+    <label for="id_client">Numéro du client :</label>
+    <input type="text" name="id_client"><br>
+
+    <label for="date_fin">Date de fin :</label>
+    <input type="datetime-local" name="date_fin"><br>
+
+    <label for="date_debut">Date de début :</label>
+    <input type="datetime-local" name="date_debut"><br>
+
+    <label for="statut">Statut :</label>
+    <input type="text" name="statut"><br>
+
+    <label for="degre_urgence">Degré d'urgence :</label>
+    <input type="number" name="degre_urgence"><br>
+
+    <label for="id_standardiste">Numéro du standardiste :</label>
+    <input type="text" name="id_standardiste"><br>
+
+    <label for="commentaire">Commentaire :</label>
+    <textarea name="commentaire"></textarea><br>
+
+    <input type="submit" value="Créer Intervention">
+</form>
+
+</body>
+</html>
