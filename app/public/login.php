@@ -1,13 +1,13 @@
 <?php
 
+session_start(); // Start the session
+
 require_once '../vendor/autoload.php';
 
 use App\Page;
 
 $page = new Page();
 $msg = '';
-
-//session_start(); // Start the session
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST["mail"];
@@ -18,7 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $msg = "NoOURTRE THect.";
 
         $_SESSION["mail"] = $username;
-        header("Location: main.php");
+        $_SESSION["idUser"] = $user["idUser"];
+
+        // Redirection en fonction du statut de l'utilisateur, 4 pour client, et 1/2/3 pour admin/intervenant/standartiste
+        if ($user["statut"] == 4) {
+            header("Location: userinterventions.php");
+        } else {
+            header("Location: affinterventions.php");
+        }
         exit;
     } else {
         $msg = "Nom d'utilisateur ou mot de passe incorrect.";
