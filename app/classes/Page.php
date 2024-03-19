@@ -124,6 +124,54 @@ class Page
     
 
 
+
+    // Pour lire la liste des utilisateurs
+    public function getAllUsers()
+    {
+        $sql = "SELECT * FROM user";
+        $stmt = $this->pdo->query($sql);
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Regrouper les utilisateurs par statut
+        $usersByStatut = [];
+        foreach ($users as $user) {
+            $usersByStatut[$user['statut']][] = $user;
+        }
+
+        return $usersByStatut;
+    }
+
+
+
+    // Pour modifier le statut d'un utilisateur
+    public function updateUserStatut(int $userId, int $newStatut)
+    {
+        $sql = "UPDATE user SET statut = :statut WHERE idUser = :userId";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':statut' => $newStatut, ':userId' => $userId]);
+
+        // Si la mise à jour réussi
+        return $stmt->rowCount() > 0;
+    }
+
+
+
+
+    // Pour supprimer un utilisateur
+    public function deleteUser(int $userId)
+    {
+        $sql = "DELETE FROM user WHERE idUser = :userId";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':userId' => $userId]);
+
+        // Si la suppression réussi
+        return $stmt->rowCount() > 0;
+    }
+
+
+
+    
+
     public function render(string $name, array $data): string
     {
         return $this->twig->render($name, $data);
