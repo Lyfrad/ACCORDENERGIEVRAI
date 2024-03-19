@@ -3,47 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'administration</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #40a876;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+
+        form {
+            display: inline;
+        }
+
+        select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            color: #555;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        input[type="submit"]:last-child {
+            background-color: #f44336;
+        }
+
+        input[type="submit"]:last-child:hover {
+            background-color: #da190b;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Page d'administration</h1>
+<h1>Liste des utilisateurs</h1>
 
-<h2>Liste des interventions</h2>
-<table>
-    <thead>
-        <tr>
-            <th>ID Intervention</th>
-            <th>Client</th>
-            <th>Date Prévue</th>
-            <th>Degré d'urgence</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if interventions %}
-            {% for intervention in interventions %}
-                <tr>
-                    <td>{{ intervention.idIntervention }}</td>
-                    <td>{{ intervention.idClient }}</td> <!-- Vous devez récupérer le nom du client par une autre requête SQL -->
-                    <td>{{ intervention.datePrevue }}</td>
-                    <td>{{ intervention.degreUrgence }}</td>
-                    <td>
-                        <a href='modifier_intervention.php?id={{ intervention.idIntervention }}'>Modifier</a>
-                        <a href='supprimer_intervention.php?id={{ intervention.idIntervention }}' onclick='return confirm("Êtes-vous sûr de vouloir supprimer cette intervention ?")'>Supprimer</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        {% else %}
-            <tr><td colspan="5">Aucune intervention trouvée.</td></tr>
-        {% endif %}
-    </tbody>
-</table>
-
-<p>
-    <a href="index.php">Retour à l'accueil</a>
-</p>
+{% for statut, usersByStatut in users %}
+    <h2>{% if statut == 1 %}Administrateurs{% elseif statut == 2 %}Intervenants{% elseif statut == 3 %}Standardistes{% else %}Clients{% endif %}</h2>
+    <ul>
+        {% for user in usersByStatut %}
+            <li>
+                {{ user.nom }} {{ user.prenom }}
+                <form action="update_user.php" method="post">
+                    <select name="statut">
+                        <option value="1" {% if user.statut == 1 %} selected {% endif %}>Admin</option>
+                        <option value="2" {% if user.statut == 2 %} selected {% endif %}>Intervenant</option>
+                        <option value="3" {% if user.statut == 3 %} selected {% endif %}>Standardiste</option>
+                        <option value="4" {% if user.statut == 4 %} selected {% endif %}>Client</option>
+                    </select>
+                    <input type="hidden" name="id" value="{{ user.idUser }}">
+                    <input type="submit" value="Modifier">
+                </form>
+                <form action="delete_user.php" method="post">
+                    <input type="hidden" name="id" value="{{ user.idUser }}">
+                    <input type="submit" value="Supprimer">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
 
 </body>
 </html>
