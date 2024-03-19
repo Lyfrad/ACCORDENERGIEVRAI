@@ -47,8 +47,8 @@ if(isset($_POST['updateIntervention'])) {
     }
 }
 
+echo '<a href="nouvintervention.php" class="create-intervention-btn">Créer une nouvelle intervention</a>';
+
 echo $page->render('affinterventions.html.twig', ['interventions' => $interventions, 'selectedIntervention' => $selectedIntervention]);
-
-
 
 ?>
