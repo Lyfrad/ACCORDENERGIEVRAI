@@ -106,6 +106,24 @@ class Page
     }
 
 
+
+    // Pour l'affichage des interventions d'un seul utilisateur :
+    public function getUserInterventions()
+    {
+        $idUser = $_SESSION["idUser"] ?? null;
+        if ($idUser) {
+            $sql = "SELECT * FROM intervention WHERE id_client = :idUser";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':idUser' => $idUser]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            // Gérer le cas où aucun utilisateur n'est connecté
+            return [];
+        }
+    }
+    
+
+
     public function render(string $name, array $data): string
     {
         return $this->twig->render($name, $data);
