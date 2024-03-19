@@ -4,35 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte d'intervention</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        
+        .interventions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .intervention-card {
+            flex: 0 1 calc(30% - 20px); /* Trois cartes par ligne avec ces valeurs */
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .intervention-id {
+            font-size: 20px;
+            font-weight: bold;
+            color: #40a876;
+            margin-bottom: 10px;
+        }
+
+        .intervention-details {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Espace avant et après le formulaire */
+        form {
+            margin-top: 30px; 
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Tous les IDs des interventions :</h2>
-<ul>
+<h2>Toutes les interventions :</h2>
+
+<div class="interventions-container">
     {% for intervention in interventions %}
-        <li>{{ intervention.idIntervention }}</li>
+    <div class="intervention-card">
+        <div class="intervention-id">Intervention {{ intervention.idIntervention }}</div>
+        <div class="intervention-details">
+            <p><strong>Date prévue:</strong> {{ intervention.date_prevue }}</p>
+            <p><strong>Date de début:</strong> {{ intervention.date_debut }}</p>
+            <p><strong>Date de fin:</strong> {{ intervention.date_fin }}</p>
+            <p><strong>Statut:</strong> {{ intervention.statut }}</p>
+            <p><strong>Degré d'urgence:</strong> {{ intervention.degre_urgence }}</p>
+            <p><strong>Commentaire:</strong> {{ intervention.commentaire }}</p>
+            <p><strong>Numéro du client:</strong> {{ intervention.id_client }}</p>
+            <p><strong>Numéro du standardiste:</strong> {{ intervention.id_standardiste }}</p>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 <form method="POST" action="">
     <label for="dateIntervention">Sélectionner une date d'intervention :</label>
     <select name="dateIntervention" id="dateIntervention">
         <option value="">Choisir une date</option>
         {% for intervention in interventions %}
-            <option value="{{ intervention.datePrevue }}">{{ intervention.datePrevue }}</option>
+            <option value="{{ intervention.date_prevue }}">Intervention n° {{ intervention.idIntervention }} - Date : {{ intervention.date_prevue }}</option>
         {% endfor %}
     </select>
     <input type="submit" value="Afficher">
 </form>
 
 {% if selectedIntervention %}
-<div class="card">
-    <h2>Intervention {{ selectedIntervention.id }}</h2>
-    <p><strong>Date prévue:</strong> {{ selectedIntervention.datePrevue }}</p>
-    <p><strong>Degré d'urgence:</strong> {{ selectedIntervention.degreUrgence }}</p>
-    <p><strong>Commentaire:</strong> {{ selectedIntervention.commentaire }}</p>
+<div class="interventions-container">
+    <div class="intervention-card">
+        <div class="intervention-id">Intervention {{ selectedIntervention.idIntervention }}</div>
+        <div class="intervention-details">
+            <p><strong>Date prévue:</strong> {{ selectedIntervention.date_prevue }}</p>
+            <p><strong>Date de début:</strong> {{ selectedIntervention.date_debut }}</p>
+            <p><strong>Date de fin:</strong> {{ selectedIntervention.date_fin }}</p>
+            <p><strong>Statut:</strong> {{ selectedIntervention.statut }}</p>
+            <p><strong>Degré d'urgence:</strong> {{ selectedIntervention.degre_urgence }}</p>
+            <p><strong>Commentaire:</strong> {{ selectedIntervention.commentaire }}</p>
+            <p><strong>Numéro du client:</strong> {{ selectedIntervention.id_client }}</p>
+            <p><strong>Numéro du standardiste:</strong> {{ selectedIntervention.id_standardiste }}</p>
+        </div>
+    </div>
 </div>
+
+<!-- Formulaire pour supprimer l'intervention -->
+<form method="POST" action="">
+    <input type="hidden" name="deleteIntervention" value="{{ selectedIntervention.idIntervention }}">
+    <input type="submit" value="Supprimer cette intervention">
+</form>
+
+<!-- Formulaire pour modifier l'intervention -->
+<form method="POST" action="">
+    <input type="hidden" name="idIntervention" value="{{ selectedIntervention.idIntervention }}">
+    <label for="date_prevue">Date prévue :</label>
+    <input type="datetime-local" name="date_prevue" value="{{ selectedIntervention.date_prevue }}"><br>
+
+    <label for="date_debut">Date de début :</label>
+    <input type="datetime-local" name="date_debut" value="{{ selectedIntervention.date_debut }}"><br>
+
+    <label for="date_fin">Date de fin :</label>
+    <input type="datetime-local" name="date_fin" value="{{ selectedIntervention.date_fin }}"><br>
+
+    <label for="statut">Statut :</label>
+    <input type="text" name="statut" value="{{ selectedIntervention.statut }}"><br>
+
+    <label for="degre_urgence">Degré d'urgence :</label>
+    <input type="number" name="degre_urgence" value="{{ selectedIntervention.degre_urgence }}"><br>
+
+    <label for="commentaire">Commentaire :</label>
+    <textarea name="commentaire">{{ selectedIntervention.commentaire }}</textarea><br>
+
+    <label for="id_client">Numéro du client :</label>
+    <input type="text" name="id_client" value="{{ selectedIntervention.id_client }}"><br>
+
+    <label for="id_standardiste">Numéro du standardiste :</label>
+    <input type="text" name="id_standardiste" value="{{ selectedIntervention.id_standardiste }}"><br>
+
+    <input type="submit" name="updateIntervention" value="Modifier cette intervention">
+</form>
 {% endif %}
 
 </body>
