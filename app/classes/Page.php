@@ -170,6 +170,14 @@ class Page
 
 
 
+    // Pour créer une nouvelle intervention
+    public function addIntervention(array $data)
+    {
+        $sql = "INSERT INTO intervention (date_prevue, id_client, date_fin, date_debut, statut, degre_urgence, id_standardiste, commentaire) VALUES (:date_prevue, :id_client, :date_fin, :date_debut, :statut, :degre_urgence, :id_standardiste, :commentaire)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($data);
+    }
+
     
 
     public function render(string $name, array $data): string
