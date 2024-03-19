@@ -73,6 +73,39 @@ class Page
 }
 
 
+
+
+     // Pour supprimer une intervention
+    public function deleteIntervention(int $idIntervention)
+    {
+        $sql = "DELETE FROM intervention WHERE idIntervention = :idIntervention";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':idIntervention' => $idIntervention]);
+        // Retourne le nombre de lignes affectées
+        return $stmt->rowCount();
+    }
+
+
+    // Pour modifier une intervention
+    public function updateIntervention(array $data)
+    {
+        $sql = "UPDATE intervention SET 
+                date_prevue = :date_prevue,
+                id_client = :id_client,
+                date_fin = :date_fin,
+                date_debut = :date_debut,
+                statut = :statut,
+                degre_urgence = :degre_urgence,
+                id_standardiste = :id_standardiste,
+                commentaire = :commentaire
+                WHERE idIntervention = :idIntervention";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($data);
+
+        return $stmt->rowCount();
+    }
+
+
     public function render(string $name, array $data): string
     {
         return $this->twig->render($name, $data);
