@@ -83,11 +83,21 @@
             <nav>
                 <h1>Accueil - AccordEnergies</h1>
                 <ul>
-                    <li><a href="index.php">Accueil</a></li>
-                    <li><a href="affinterventions.php">Interventions</a></li>
-                    <li><a href="compte">Mon compte</a></li>
+<li><a href="index.php">Accueil</a></li>
+{% if user.statut == 4 %}
+    <li><a href="userinterventions.php">Interventions</a></li>
+{% else %}
+    <li><a href="affinterventions.php">Interventions</a></li>
+    {% if user.statut == 1 %}
+    <li><a href="admin.php">Gestion utilisateurs</a></li>
+    {% endif %}
+{% endif %}
+
+<li><a href="profil.php">Mon compte</a></li>
+
+<li><a href="deconnexion.php">Deconnexion</a></li>
                 </ul>
-            </nav>
+            </nav> 
         </header>
 
         <main>
@@ -96,7 +106,7 @@
                 <a href="#" class="contact-btn">Contacter un conseiller</a>
             </section>
         </main>
-
+    
         <footer>
             <div class="container">
                 <p>&copy; 2024 AccordEnergies. Tous droits réservés.</p>
