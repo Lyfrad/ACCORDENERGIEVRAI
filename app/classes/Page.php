@@ -45,8 +45,8 @@ class Page
         $stmt = $this->pdo->prepare($sql);
 
         // Affichage des données pour débogage
-        echo "Requête SQL : $sql <br>";
-        echo "Données insérées : <pre>" . print_r($data, true) . "</pre>";
+        //echo "Requête SQL : $sql <br>";
+        //echo "Données insérées : <pre>" . print_r($data, true) . "</pre>";
 
         $stmt->execute($data);
     }
@@ -59,23 +59,26 @@ class Page
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAllInterventions(){
-        $sql = "SELECT idIntervention, DATE_FORMAT(date_prevue, '%Y-%m-%d %H:%i:%s') AS datePrevue FROM Intervention";
+    public function getAllInterventions()
+    {
+        $sql = "SELECT * FROM intervention";
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    
+
     public function getInterventionByDate(string $date)
-{
-    $sql = "SELECT * FROM Intervention WHERE date_prevue = :date";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute([':date' => $date]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+    {
+        $sql = "SELECT * FROM intervention WHERE date_prevue = :date";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':date' => $date]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 
-
-
-     // Pour supprimer une intervention
+    
+    // Pour supprimer une intervention
     public function deleteIntervention(int $idIntervention)
     {
         $sql = "DELETE FROM intervention WHERE idIntervention = :idIntervention";
@@ -107,7 +110,7 @@ class Page
 
 
 
-    // Pour l'affichage des interventions d'un seul utilisateur :
+    // Pour l'affichage des interventions d'un seul utilisateur
     public function getUserInterventions()
     {
         $idUser = $_SESSION["idUser"] ?? null;
@@ -121,7 +124,7 @@ class Page
             return [];
         }
     }
-    
+
 
 
 
@@ -170,6 +173,7 @@ class Page
 
 
 
+
     // Pour créer une nouvelle intervention
     public function addIntervention(array $data)
     {
@@ -178,11 +182,26 @@ class Page
         $stmt->execute($data);
     }
 
+
+
+
+    // Pour vérifier le mot de passe de l'utilisateur
+    public function getPasswordByUser(string $email)
+    {
+        $sql = "SELECT password FROM user WHERE mail = :mail";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':mail' => $email]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
+        return $result['password']; // Retourne directement le mot de passe
+    }
+
+
+
+
 
     public function render(string $name, array $data): string
     {
         return $this->twig->render($name, $data);
     }
 }
-?>
