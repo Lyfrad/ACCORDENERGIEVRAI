@@ -1,6 +1,6 @@
 <?php
 
-session_start(); // Start the session
+session_start(); 
 
 require_once '../vendor/autoload.php';
 
@@ -13,9 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST["mail"];
     $password = $_POST["password"];
     $user = $page->getUserByUsername($username);
+    $mdp = $page->getPasswordByUser($username);
 
-    if (!empty($user) /*&& password_verify($password, $user["password"])*/) {
-        $msg = "NoOURTRE THect.";
+    if (!empty($user)) {
+        $msg = "testnumero1.: $mdp ";
+
+        if($password == $mdp ){
+        $msg = "test.";
 
         $_SESSION["mail"] = $username;
         $_SESSION["idUser"] = $user["idUser"];
@@ -26,15 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             header("Location: affinterventions.php");
         }
-        exit;
+        exit;}
     } else {
         $msg = "Nom d'utilisateur ou mot de passe incorrect.";
     }
 }
 
-if (!empty($_SESSION["mail"])) { // Check if the user is logged in
-    $msg = ''; // Clear the message if the user is logged in
-}
+
 
 $template = 'login.html.twig';
 $data = ['msg' => $msg];
