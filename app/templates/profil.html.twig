@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil de l'utilisateur</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+     <nav>
+                <h1>Accueil - AccordEnergies</h1>
+                <ul>
+<li><a href="index.php">Accueil</a></li>
+{% if user.statut == 4 %}
+    <li><a href="userinterventions.php">Interventions</a></li>
+{% else %}
+    <li><a href="affinterventions.php">Interventions</a></li>
+    {% if user.statut == 1 %}
+    <li><a href="admin.php">Gestion utilisateurs</a></li>
+    {% endif %}
+{% endif %}
+
+<li><a href="profil.php">Mon compte</a></li>
+
+<li><a href="deconnexion.php">Deconnexion</a></li>
+                </ul>
+            </nav> 
+</head>
+<body>
+
+<h1>Profil de l'utilisateur</h1>
+
+<h2>Informations personnelles</h2>
+<form method="POST" action="modifier_profil.php">
+    <label for="nom">Nom:</label>
+    <input type="text" name="nom" id="nom" value={{ utilisateur.nom}} required>
+
+    <label for="prenom">Prénom:</label>
+    <input type="text" name="prenom" id="prenom" value={{utilisateur.prenom}} required>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" value={{utilisateur.mail}} required>
+
+    <!-- Autres champs d'information de l'utilisateur -->
+
+    <input type="submit" name="modifier" value="Modifier">
+</form>
+
+
+<p>
+    <a href="index.php">Retour à l'accueil</a>
+</p>
+
+</body>
+</html>
