@@ -19,7 +19,7 @@ if (isset($_POST['send'])) {
         $data = [
             'prenom' => $username,
             'password' => $password,
-            'nom' => $nom, // Assurez-vous que ce champ correspond à un champ existant dans votre table 'user'
+            'nom' => $nom, 
             'statut' => 4,
             'adresse' => '123 rue de Test',
             'telephone' => '123-456-7890',
