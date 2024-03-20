@@ -23,7 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'degre_urgence' => $_POST['degre_urgence'],
         'id_standardiste' => $_POST['id_standardiste'],
         'commentaire' => $_POST['commentaire']
+     
+
+        
     ];
+
 
     $page->addIntervention($interventionData);
 
