@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Redirection en fonction du statut de l'utilisateur, 4 pour client, et 1/2/3 pour admin/intervenant/standartiste
         if ($user["statut"] == 4) {
-            header("Location: userinterventions.php");
+            header("Location: index.php");
         } else {
             header("Location: affinterventions.php");
         }
