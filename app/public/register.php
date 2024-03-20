@@ -20,18 +20,17 @@ if (isset($_POST['send'])) {
             'prenom' => $username,
             'password' => $password,
             'nom' => $nom, // Assurez-vous que ce champ correspond à un champ existant dans votre table 'user'
-            'statut' => 'Actif',
+            'statut' => 4,
             'adresse' => '123 rue de Test',
             'telephone' => '123-456-7890',
             'mail' => $email,
             'type' => 'Client',
-            'id' => 1, // Remplacer par l'ID approprié
         ];
 
         try {
             $page->renderTable('user', $data);
             // Rediriger vers la page main.php après l'inscription réussie
-            header("Location: index.php");
+            header("Location: login.php");
             exit;
         } catch (\Exception $e) {
             echo "Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage();
