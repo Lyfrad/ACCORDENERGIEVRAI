@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nouvelle Intervention</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+     <nav>
+                <h1>Accueil - AccordEnergies</h1>
+                <ul>
+<li><a href="index.php">Accueil</a></li>
+{% if user.statut == 4 %}
+    <li><a href="userinterventions.php">Interventions</a></li>
+{% else %}
+    <li><a href="affinterventions.php">Interventions</a></li>
+    {% if user.statut == 1 %}
+    <li><a href="admin.php">Gestion utilisateurs</a></li>
+    {% endif %}
+{% endif %}
+
+<li><a href="profil.php">Mon compte</a></li>
+
+<li><a href="deconnexion.php">Deconnexion</a></li>
+                </ul>
+            </nav> 
 </head>
 <body>
 
@@ -34,6 +52,8 @@
 
     <label for="commentaire">Commentaire :</label>
     <textarea name="commentaire"></textarea><br>
+
+    
 
     <input type="submit" value="Créer Intervention">
 </form>
