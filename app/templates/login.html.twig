@@ -6,7 +6,12 @@
         <title>Login</title>
     </head>
     <body>
-        <h1>Login</h1>
+     <header>
+            <nav>
+                        <h1>CONNEXION - AccordEnergies</h1>
+
+    </nav>
+    </header>
         {% if msg %}
             <p>{{ msg }}</p>
         {% endif %}
@@ -17,5 +22,9 @@
             <input type="password" id="password" name="password" required><br><br>
             <input type="submit" value="Login">
         </form>
+ <div class="register-link">
+        <a href="register.php">Pas encore de compte ?</a>
+    </div>
+
     </body>
     </html>
