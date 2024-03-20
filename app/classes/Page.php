@@ -111,9 +111,8 @@ class Page
 
 
     // Pour l'affichage des interventions d'un seul utilisateur
-    public function getUserInterventions()
+    public function getUserInterventions($idUser)
     {
-        $idUser = $_SESSION["idUser"] ?? null;
         if ($idUser) {
             $sql = "SELECT * FROM intervention WHERE id_client = :idUser";
             $stmt = $this->pdo->prepare($sql);
