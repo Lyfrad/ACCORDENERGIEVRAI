@@ -5,45 +5,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Accueil - AccordEnergies</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        p{text-align: center;}
+
+        /* Ajoutez ces styles CSS pour la section de la bannière et le bouton de contact */
+        .banner {
+            position: relative;
+            text-align: center;
+        }
+
+        .banner img {
+            width: 85%; /* Ajustez la largeur de l'image selon vos besoins */
+            max-width: 85%;
+            height: 50%;
+            max-height: 50% ;
+            margin: 0 auto;
+        }
+
+        .contact-btn {
+            position: absolute;
+            bottom: 20px; /* Ajustez la position verticale du bouton */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background-color: #2E8B57;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background-color: #228B22;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px; /* Ajoute un espace au-dessus du lien */
+        }
+
+
+        nav {
+            background-color: #2E8B57; /* Couleur de fond verte */
+            padding: 10px; /* Ajouter du rembourrage pour l'esthétique */
+            border-radius: 5px; /* Ajouter des coins arrondis */
+        }
+
+        ul {
+            list-style-type: none; /* Supprimer les puces de liste */
+            padding: 0; /* Supprimer les marges intérieures */
+            margin: 0;
+            text-align: center;
+        }
+
+        ul li {
+            display: inline; /* Afficher les éléments de la liste en ligne */
+            margin-right: 20px; /* Ajouter de l'espace entre les éléments de la liste */
+        }
+
+        ul li a {
+            color: #fff; /* Couleur du texte blanc */
+            text-decoration: none; /* Supprimer les soulignements des liens */
+            font-weight: bold; /* Mettre en gras */
+        }
+
+        ul li a:hover {
+            text-decoration: underline; /* Souligner les liens au survol */
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="/img/logo.png" alt="Logo de l'entreprise">
-        </div>
-        <nav>
-            <ul>
-                {% for item in menu %}
-                    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h1>{{ content.title }}</h1>
-            <p>{{ content.text }}</p>
-            <a href="{{ content.button.url }}" class="button">{{ content.button.text }}</a>
-        </section>
-        <div class="container">
-            <div class="box">
-                <h2>Nos services</h2>
-                <p>Découvrez nos services pour les particuliers et les professionnels.</p>
-                <a href="/services" class="button">En savoir plus</a>
+    <body>
+        <header>
+            <nav>
+                <h1>Accueil - AccordEnergies</h1>
+                <ul>
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="affinterventions.php">Interventions</a></li>
+                    <li><a href="compte">Mon compte</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="banner">
+                <img src="eolienne.png" alt="Image d'accueil">
+                <a href="#" class="contact-btn">Contacter un conseiller</a>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 AccordEnergies. Tous droits réservés.</p>
             </div>
-            <div class="box">
-                <h2>Mon compte</h2>
-                <p>Accédez à votre compte client pour suivre vos interventions et vos factures.</p>
-                <a href="/compte" class="button">Se connecter</a>
-            </div>
-            <div class="box">
-                <h2>Contactez-nous</h2>
-                <p>Besoin d'aide ? Contactez notre service client par téléphone ou par email.</p>
-                <a href="/contact" class="button">Nous contacter</a>
-            </div>
-        </div>
-    </main>
-</body>
-</html>
+        </footer>
+    </body>
+    </html>
