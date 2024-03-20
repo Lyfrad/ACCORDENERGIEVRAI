@@ -6,8 +6,9 @@ require_once '../vendor/autoload.php';
 use App\Page;
 
 $page = new Page();
-
-$interventions = $page->getUserInterventions(); 
+$utilisateur = $page -> getUserByUsername($_SESSION["mail"]);
+$idUser=$utilisateur["idUser"];
+$interventions = $page->getUserInterventions($idUser); 
 
 echo $page->render('userinterventions.html.twig', ['interventions' => $interventions]);
 
