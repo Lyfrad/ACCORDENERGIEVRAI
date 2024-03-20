@@ -1,82 +1,95 @@
-/* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
-    background-image: url("/img/background.jpg");
-    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f2f2f2;
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #333;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.logo img {
-    max-width: 200px;
-}
-
-header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-header nav ul li a {
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px;
-    display: block;
-    margin-right: 20px;
-}
-
-header nav ul li a:hover {
-    text-decoration: underline;
 }
 
 h1 {
     text-align: center;
     margin-top: 50px;
-    color: #333;
+    color: #40a876;
     font-size: 36px;
     text-transform: uppercase;
 }
 
-main {
-    max-width: 1200px;
+form {
+    max-width: 400px;
     margin: 0 auto;
-    padding: 40px;
-}
-
-section {
-    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #555;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #882525;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+input[type="submit"]:hover {
+    background-color: #ac1f29;
+    transition: background-color 0.3s ease;
+}
+
+nav {
+    background-color: #2E8B57; /* Couleur de fond verte */
+    padding: 10px; /* Ajouter du rembourrage pour l'esthétique */
+    border-radius: 5px; /* Ajouter des coins arrondis */
+}
+
+ul {
+    list-style-type: none; /* Supprimer les puces de liste */
+    padding: 0; /* Supprimer les marges intérieures */
+    margin: 0;
     text-align: center;
 }
 
-section p {
-    color: #333;
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 20px;
+ul li {
+    display: inline; /* Afficher les éléments de la liste en ligne */
+    margin-right: 20px; /* Ajouter de l'espace entre les éléments de la liste */
 }
 
-section .button {
-    background-color: #40a876;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
+ul li a {
+    color: #fff; /* Couleur du texte blanc */
+    text-decoration: none; /* Supprimer les soulignements des liens */
+    font-weight: bold; /* Mettre en gras */
 }
+
+ul li a:hover {
+    text-decoration: underline; /* Souligner les liens au survol */
+}
+
+
+
